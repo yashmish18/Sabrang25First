@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 const Team = ({ className }: { className?: string }) => {
@@ -12,6 +14,5 @@ const Team = ({ className }: { className?: string }) => {
       {/* Add team member profiles here */}
     </div>
   );
-};
-
-export default Team; 
+}
+export default Team;
