@@ -1,17 +1,25 @@
-import React from 'react';
+'use client';
 
-const Team = () => {
+import React from 'react';
+import TeamCard from './teamcard';
+
+export default function TeamPage() {
+  const members = [
+    { name: 'Suryaansh', role: 'Coordinator' },
+    { name: 'Somay', role: 'Design Lead' },
+    // Add more team members here
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black text-white font-sans flex flex-col items-center justify-center py-12 px-4">
-      <h1 className="text-5xl md:text-7xl font-extrabold mb-8 leading-tight drop-shadow-lg text-purple-400">
-        Our Team
-      </h1>
-      <p className="text-xl md:text-2xl text-gray-300 max-w-3xl text-center">
-        Meet the incredible individuals who make Sabrang '25 possible.
-      </p>
-      {/* Add team member profiles here */}
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-indigo-900 to-black p-10">
+      <h1 className="text-4xl font-bold text-white mb-10 text-center">Meet the Team</h1>
+      
+      {/* Perspective wrapper */}
+      <div className="flex flex-wrap justify-center gap-10" style={{ perspective: '1000px' }}>
+        {members.map((member, i) => (
+          <TeamCard key={i} name={member.name} role={member.role} />
+        ))}
+      </div>
     </div>
   );
-};
-
-export default Team; 
+}
