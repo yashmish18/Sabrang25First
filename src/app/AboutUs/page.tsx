@@ -1,8 +1,8 @@
 import React from 'react';
 
-const AboutUs = ({ className }: { className?: string }) => {
+const AboutUs = () => {
   return (
-    <div className={`min-h-screen text-white font-sans flex flex-col items-center justify-center px-4 py-20 ${className}`}>
+    <div className="min-h-screen text-white font-sans flex flex-col items-center justify-center px-4 py-20">
       <h1 className="text-5xl md:text-7xl font-extrabold mb-8 leading-tight drop-shadow-lg text-purple-400">
         About Us
       </h1>
