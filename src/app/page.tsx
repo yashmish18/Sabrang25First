@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Events from "./Events/page";
@@ -24,7 +24,7 @@ export default function Page() {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black text-white font-sans">
       <Navbar />
       
-      <div className="flex flex-col">
+      <div className="flex flex-col pt-20">
         {/* Hero Section */}
         <section className="min-h-screen flex items-center justify-center px-4 py-16 text-center relative">
           <div className="max-w-6xl mx-auto">

@@ -5,7 +5,6 @@ const Signup = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black text-white font-sans flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-6 bg-gray-800 bg-opacity-70 p-8 rounded-lg shadow-xl border border-gray-700">
         <div className="text-center">
-          {/* Placeholder for Sitmark-like logo */}
           <div className="text-purple-400 text-3xl font-bold mb-4">
             Sabrang
           </div>
@@ -13,9 +12,28 @@ const Signup = () => {
             Sign up
           </h2>
         </div>
+
         <form className="mt-8 space-y-6" action="#" method="POST">
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="space-y-4">
+
+            {/* Username Field */}
+            <div>
+              <label htmlFor="username" className="block text-sm font-medium text-gray-300">
+                Username
+              </label>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                autoComplete="username"
+                required
+                className="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm placeholder-gray-400 text-white focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
+                placeholder="username"
+              />
+            </div>
+
+            {/* Email */}
             <div>
               <label htmlFor="email-address" className="block text-sm font-medium text-gray-300">
                 Email
@@ -30,6 +48,8 @@ const Signup = () => {
                 placeholder="your@email.com"
               />
             </div>
+
+            {/* Password */}
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-300">
                 Password
@@ -44,6 +64,8 @@ const Signup = () => {
                 placeholder="******"
               />
             </div>
+
+            {/* Confirm Password */}
             <div>
               <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-300">
                 Confirm Password
@@ -58,6 +80,8 @@ const Signup = () => {
                 placeholder="******"
               />
             </div>
+
+            {/* Referral Code */}
             <div>
               <label htmlFor="referral-code" className="block text-sm font-medium text-gray-300">
                 Referral Code (Optional)
@@ -73,6 +97,7 @@ const Signup = () => {
             </div>
           </div>
 
+          {/* Submit Button */}
           <div>
             <button
               type="submit"
@@ -83,13 +108,13 @@ const Signup = () => {
           </div>
         </form>
 
+        {/* Divider */}
         <div className="relative flex justify-center text-sm">
-          <span className="px-2 bg-gray-800 bg-opacity-70 text-gray-400">
-            or
-          </span>
+          <span className="px-2 bg-gray-800 bg-opacity-70 text-gray-400">or</span>
           <div className="absolute inset-y-0 left-0 w-full border-t border-gray-700 pointer-events-none" aria-hidden="true"></div>
         </div>
 
+        {/* Social Buttons */}
         <div className="space-y-3">
           <button className="w-full flex justify-center items-center py-2 px-4 border border-gray-600 rounded-md shadow-sm text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-300 ease-in-out">
             <img src="/images/google-icon.svg" alt="Google" className="mr-2 h-5 w-5" />
@@ -101,6 +126,7 @@ const Signup = () => {
           </button>
         </div>
 
+        {/* Login Redirect */}
         <div className="text-center text-sm text-gray-400">
           Already have an account? <a href="/Login" className="font-medium text-purple-400 hover:text-purple-300">Sign in</a>
         </div>
@@ -109,4 +135,4 @@ const Signup = () => {
   );
 };
 
-export default Signup; 
+export default Signup;
