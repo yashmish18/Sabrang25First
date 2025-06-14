@@ -92,3 +92,18 @@ body {
 .animation-delay-6000 {
   animation-delay: 6s;
 }
+
+/* Custom scrollbar hide for Webkit browsers */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom scrollbar hide for Firefox */
+html {
+  scrollbar-width: none;
+}
+
+/* Optional: For IE/Edge, though usually not needed if overflow is handled */
+body {
+  -ms-overflow-style: none;
+}

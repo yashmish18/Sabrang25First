@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Team = () => {
+const Team = ({ className }: { className?: string }) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black text-white font-sans flex flex-col items-center justify-center py-12 px-4">
+    <div className={`min-h-screen text-white font-sans flex flex-col items-center justify-center px-4 py-20 ${className}`}>
       <h1 className="text-5xl md:text-7xl font-extrabold mb-8 leading-tight drop-shadow-lg text-purple-400">
         Our Team
       </h1>

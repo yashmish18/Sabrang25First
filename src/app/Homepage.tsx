@@ -1,6 +1,6 @@
 'use client'
 import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+
 
 import { useEffect, useState } from "react";
 
@@ -54,7 +54,7 @@ export default function Homepage() {
         <div className="absolute w-48 h-48 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000 bottom-1/3 right-1/4"></div>
         <div className="absolute w-48 h-48 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-6000 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
       </div>
-      <Footer />
+     
     </div>
   );
 }
