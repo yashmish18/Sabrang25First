@@ -26,8 +26,8 @@ export default function Page() {
       
       <div className="flex flex-col pt-20">
         {/* Hero Section */}
-        <section className="min-h-screen flex items-center justify-center px-4 py-16 text-center relative">
-          <div className="max-w-6xl mx-auto">
+        <section className="min-h-screen flex items-center justify-center">
+          <div className="max-w-6xl mx-auto text-center">
             <h1 className="text-5xl md:text-7xl font-extrabold mb-4 leading-tight drop-shadow-lg animate-fade-in-down">
               Welcome to <span className="text-purple-400">Sabrang '25</span>
             </h1>
@@ -51,11 +51,6 @@ export default function Page() {
               </button>
             </div>
           </div>
-        </section>
-
-        {/* Events Section */}
-        <section className="min-h-screen">
-          <Events />
         </section>
 
         {/* Flagship Events Section */}
