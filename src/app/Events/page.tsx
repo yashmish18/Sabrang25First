@@ -41,7 +41,25 @@ export default function EventsPage() {
       <p className="text-xl md:text-2xl text-gray-300 max-w-3xl text-center">
         Explore the diverse range of events at Sabrang '25.
       </p>
-      {/* Add event listings here */}
-    </div>
-  );
+      <div className="mt-12 w-full max-w-6xl">
+        {categories.map((category) => (
+          <div key={category.name} className="mb-12">
+            <h2 className="text-4xl font-bold text-purple-300 mb-8 text-center">
+              {category.name} Events
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+              {category.events.gold.map((event, index) => (
+                <EventCard key={index} event={event} glow="gold" />
+              ))}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {category.events.silver.map((event, index) => (
+                <EventCard key={index} event={event} glow="silver" />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
