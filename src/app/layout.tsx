@@ -3,6 +3,9 @@ import "./globals.css";
 import Background from "../../components/Background";
 import  Navbar  from "../../components/Navbar"
 import Footer from "../../components/Footer";
+import SplashCursor from '../../components/SplashCursor'
+
+
 export const metadata: Metadata = {
   title: "Sabrang",
   description: "A cosmic carnival themed website",
@@ -16,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
+  <SplashCursor />
   <Background />
   <div className="relative z-10">
     <Navbar />
