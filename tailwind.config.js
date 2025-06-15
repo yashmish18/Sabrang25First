@@ -7,7 +7,21 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        scroll: "scroll var(--animation-duration, 40s) linear infinite",
+      },
+      keyframes: {
+        scroll: {
+          "0%": {
+            transform: "translateX(0)",
+          },
+          "100%": {
+            transform: "translateX(calc(-50% - 0.5rem))",
+          },
+        },
+      },
+    },
   },
   plugins: [require('tailwind-scrollbar-hide')],
 }

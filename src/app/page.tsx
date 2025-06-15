@@ -24,7 +24,7 @@ export default function Page() {
 
   return (
     <div className="min-h-screen text-white font-sans">
-      <Navbar />
+      
       
       <div className="flex flex-col pt-20">
         {/* Hero Section */}
@@ -92,7 +92,7 @@ export default function Page() {
         </section>
       </div>
 
-      <Footer />
+     
     </div>
   );
 }

@@ -1,4 +1,61 @@
 import React from 'react';
+import { InfiniteMovingCards } from '../../../components/infinite-moving-cards';
+
+const testimonials1 = [
+  {
+    quote: "Sabrang '25 was an unforgettable experience! The energy and creativity on display were absolutely amazing.",
+    name: "Sarah Johnson",
+    title: "Event Attendee"
+  },
+  {
+    quote: "The cultural performances were mesmerizing. Each act told a unique story that touched our hearts.",
+    name: "Michael Chen",
+    title: "Cultural Enthusiast"
+  },
+  {
+    quote: "The organization and execution of Sabrang '25 was flawless. A perfect blend of tradition and innovation.",
+    name: "Priya Sharma",
+    title: "Event Coordinator"
+  },
+  {
+    quote: "The atmosphere was electric! Every moment was filled with joy and celebration.",
+    name: "David Kumar",
+    title: "Student Participant"
+  },
+  {
+    quote: "Sabrang '25 brought together the best of art, music, and culture in one spectacular event.",
+    name: "Ananya Patel",
+    title: "Art Director"
+  }
+];
+
+const testimonials2 = [
+  {
+    quote: "The dance performances were absolutely breathtaking. Each movement told a story of its own.",
+    name: "Rahul Verma",
+    title: "Dance Enthusiast"
+  },
+  {
+    quote: "The music performances were soul-stirring. I've never experienced such beautiful melodies.",
+    name: "Meera Kapoor",
+    title: "Music Critic"
+  },
+  {
+    quote: "The art exhibition was a visual treat. The creativity and talent on display was inspiring.",
+    name: "Arjun Singh",
+    title: "Art Curator"
+  },
+  {
+    quote: "The food festival was a gastronomic delight. Each dish was a celebration of culture.",
+    name: "Zara Khan",
+    title: "Food Blogger"
+  },
+  {
+    quote: "The fashion show was a perfect blend of tradition and contemporary style.",
+    name: "Neha Gupta",
+    title: "Fashion Designer"
+  }
+];
 
 const Gallery = () => {
   return (
@@ -6,9 +63,27 @@ const Gallery = () => {
       <h1 className="text-5xl md:text-7xl font-extrabold mb-8 leading-tight drop-shadow-lg text-purple-400">
         Gallery
       </h1>
-      <p className="text-xl md:text-2xl text-gray-300 max-w-3xl text-center">
+      <p className="text-xl md:text-2xl text-gray-300 max-w-3xl text-center mb-16">
         Relive the moments from Sabrang '25!
       </p>
+      
+      <div className="w-full space-y-4">
+        <InfiniteMovingCards
+          items={testimonials1}
+          direction="left"
+          speed="normal"
+          pauseOnHover={true}
+          className="mt-8"
+        />
+        <InfiniteMovingCards
+          items={testimonials2}
+          direction="right"
+          speed="normal"
+          pauseOnHover={true}
+          className="mt-8"
+        />
+      </div>
+      
       {/* Add image gallery here */}
     </div>
   );
