@@ -13,7 +13,11 @@ interface EventProps {
   glow: 'gold' | 'silver';
 }
 
-const StyledWrapper = styled.div`
+interface StyledWrapperProps {
+  glow: 'gold' | 'silver';
+}
+
+const StyledWrapper = styled.div<StyledWrapperProps>`
   .parent {
     width: 100%;
     height: 100%;
