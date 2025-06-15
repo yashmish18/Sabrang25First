@@ -6,6 +6,7 @@ import FlagshipEvent from "./FlagshipEvent/page";
 import Gallery from "./Gallery/page";
 import Team from "./Team/page";
 
+import GradientText from '../../components/GradientText'
 import Contact from "./Contact/page";
 import { useEffect, useState } from "react";
 import FAQ from "./FAQ/page";
@@ -29,9 +30,18 @@ export default function Page() {
         {/* Hero Section */}
         <section className="min-h-screen flex items-center justify-center px-4 py-16 text-center relative">
           <div className="max-w-6xl mx-auto">
-            <h1 className="text-5xl md:text-7xl font-extrabold mb-4 leading-tight drop-shadow-lg animate-fade-in-down">
-              Welcome to <span className="bg-gradient-to-r from-purple-700 to-fuchsia-500 text-transparent bg-clip-text text-shadow-lg">Sabrang '25</span>
-            </h1>
+            <h1 className="text-5xl md:text-7xl font-extrabold mb-4 leading-tight drop-shadow-lg">
+  Welcome to{" "}
+  <GradientText
+    colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]}
+    animationSpeed={3}
+    showBorder={false}
+    className="custom-class"
+  >
+    Sabrang '25
+  </GradientText>
+</h1>
+
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
               Experience the grandest cultural fest. Unleash your talent, witness captivating performances, and create unforgettable memories.
             </p>

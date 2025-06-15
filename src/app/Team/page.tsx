@@ -1,18 +1,14 @@
-'use client';
+"use client";
+import React from "react";
+import ChromaGrid from "./ChromaGrid";
 
-import React from 'react';
-
-const Team = () => {
+const TeamPage = () => {
   return (
-    <div className="min-h-screen text-white font-sans flex flex-col items-center justify-center px-4 py-20">
-      <h1 className="text-5xl md:text-7xl font-extrabold mb-8 leading-tight drop-shadow-lg cosmic-text">
-        Our Team
-      </h1>
-      <p className="text-xl md:text-2xl text-gray-300 max-w-3xl text-center">
-        Meet the incredible individuals who make Sabrang '25 possible.
-      </p>
-      {/* Add team member profiles here */}
+    <div className="min-h-screen bg-black text-white px-6 py-16">
+      <h1 className="text-4xl font-bold text-center mb-10">Meet the Team</h1>
+      <ChromaGrid />
     </div>
   );
-}
-export default Team;
+};
+
+export default TeamPage;
