@@ -1,6 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import EventCard from './EventCard';
+import { useState } from 'react';
 
 const categories = [
   {
@@ -225,6 +226,8 @@ const categories = [
 ];
 
 export default function EventsPage() {
+  const [activeCategory, setActiveCategory] = useState('Cultural');
+
   return (
     <div className="min-h-screen text-white font-sans flex flex-col items-center justify-center px-4 py-20">
       <h1 className="text-5xl md:text-7xl font-extrabold mb-8 leading-tight drop-shadow-lg text-purple-400 text-center">
@@ -233,23 +236,45 @@ export default function EventsPage() {
       <p className="text-xl md:text-2xl text-gray-300 max-w-3xl text-center mb-12">
         Explore the diverse range of events at Sabrang '25.
       </p>
+
+      {/* Navbar */}
+      <div className="w-full max-w-7xl mb-12">
+        <div className="flex justify-center space-x-4 md:space-x-8">
+          {categories.map((category) => (
+            <button
+              key={category.name}
+              onClick={() => setActiveCategory(category.name)}
+              className={`px-6 py-3 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 ${
+                activeCategory === category.name
+                  ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/50'
+                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+              }`}
+            >
+              {category.name}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="w-full max-w-7xl">
-        {categories.map((category) => (
-          <div key={category.name} className="mb-16">
-            <h2 className="text-4xl font-bold text-purple-300 mb-8 text-center">
-              {category.name} Events
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[...category.events.gold, ...category.events.silver].map((event, index) => (
-                <EventCard 
-                  key={event.title} 
-                  event={event} 
-                  glow={index < 4 ? 'gold' : 'silver'} 
-                />
-              ))}
+        {categories
+          .filter((category) => category.name === activeCategory)
+          .map((category) => (
+            <div key={category.name} className="mb-16">
+              <h2 className="text-4xl font-bold text-purple-300 mb-8 text-center">
+                {category.name} Events
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[...category.events.gold, ...category.events.silver].map((event, index) => (
+                  <EventCard 
+                    key={event.title} 
+                    event={event} 
+                    glow={index < 4 ? 'gold' : 'silver'} 
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
