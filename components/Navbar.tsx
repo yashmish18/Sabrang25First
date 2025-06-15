@@ -8,20 +8,19 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="w-full fixed top-4 z-50 flex items-center justify-between pl-25 pr-0">
+    <nav className="w-full fixed top-4 z-50 flex items-center justify-between pl-4 pr-4 sm:pl-25 sm:pr-0">
       {/* Left: Logo */}
-      <div className="flex items-center ml-14">
+      <div className="flex items-center ml-4 sm:ml-14">
         <Image src={Logo} alt="Logo" width={70} height={70} />
       </div>
 
       {/* Center: Main Navbar Links */}
-      <div className="flex items-center justify-center left">
-        <div className="flex items-center justify-between w-fit px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full shadow-lg">
+      <div className="flex items-center justify-center flex-1">
+        <div className="flex items-center justify-between md:w-fit md:px-6 md:py-3 md:bg-white/10 md:backdrop-blur-md md:border md:border-white/20 text-white md:rounded-full md:shadow-lg">
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center space-x-6">
             <a href="/" className="text-white font-medium hover:text-yellow-300 transition">Home</a>
             <a href="/Events" className="text-white font-medium hover:text-yellow-300 transition">Events</a>
-            
             <a href="/Gallery" className="text-white font-medium hover:text-yellow-300 transition">Gallery</a>
             <a href="/Team" className="text-white font-medium hover:text-yellow-300 transition">Team</a>
             <a href="/FAQ" className="text-white font-medium hover:text-yellow-300 transition">FAQ</a>
@@ -29,7 +28,7 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Hamburger: Mobile */}
-          <div className="md:hidden">
+          <div className="md:hidden ml-50">
             <button onClick={() => setIsOpen(!isOpen)} className="text-white focus:outline-none">
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
@@ -41,10 +40,9 @@ const Navbar: React.FC = () => {
 
         {/* Mobile Nav Links */}
         {isOpen && (
-          <div className="md:hidden mt-20 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-xl px-4 py-4 shadow-lg w-11/12 absolute right-0 left-0 mx-auto">
+          <div className="md:hidden absolute top-20 left-0 right-0 mx-auto w-11/12 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-xl px-4 py-4 shadow-lg z-40">
             <a href="/" className="block text-white py-2 hover:text-yellow-300">Home</a>
             <a href="/Events" className="block text-white py-2 hover:text-yellow-300">Events</a>
-           
             <a href="/Gallery" className="block text-white py-2 hover:text-yellow-300">Gallery</a>
             <a href="/Team" className="block text-white py-2 hover:text-yellow-300">Team</a>
             <a href="/FAQ" className="block text-white py-2 hover:text-yellow-300">FAQ</a>
@@ -56,7 +54,7 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Right: Login/Register Buttons */}
-      <div className="flex items-center space-x-4 mr-14">
+      <div className="hidden md:flex items-center space-x-4 mr-14">
         <a href="/Login" className="inline-block bg-white hover:bg-[#333333] text-black hover:text-white font-semibold py-2 px-5 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">Login</a>
         <a href="/Signup" className="inline-block bg-white hover:bg-[#333333] text-black hover:text-white font-semibold py-2 px-5 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">Register</a>
       </div>

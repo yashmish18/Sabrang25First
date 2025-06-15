@@ -182,19 +182,3 @@ html {
 body {
   -ms-overflow-style: none;
 }
-/* globals.css */
-body {
-  margin: 0;
-  font-family: sans-serif;
-}
-
-.container {
-  padding: 1rem;
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 700px;
-    margin: auto;
-  }
-}
