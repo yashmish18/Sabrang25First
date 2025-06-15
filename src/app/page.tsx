@@ -5,9 +5,10 @@ import Events from "./Events/page";
 import FlagshipEvent from "./FlagshipEvent/page";
 import Gallery from "./Gallery/page";
 import Team from "./Team/page";
-import AboutUs from "./AboutUs/page";
+
 import Contact from "./Contact/page";
 import { useEffect, useState } from "react";
+import FAQ from "./FAQ/page";
 
 export default function Page() {
   const [isMounted, setIsMounted] = useState(false);
@@ -28,30 +29,32 @@ export default function Page() {
         {/* Hero Section */}
         <section className="min-h-screen flex items-center justify-center px-4 py-16 text-center relative">
           <div className="max-w-6xl mx-auto">
-            <h1 className="text-5xl md:text-7xl font-extrabold mb-4 leading-tight drop-shadow-lg animate-fade-in-down cosmic-text">
-              Welcome to <span className="">Sabrang '25</span>
+            <h1 className="text-5xl md:text-7xl font-extrabold mb-4 leading-tight drop-shadow-lg animate-fade-in-down">
+              Welcome to <span className="bg-gradient-to-r from-purple-700 to-fuchsia-500 text-transparent bg-clip-text text-shadow-lg">Sabrang '25</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
               Experience the grandest cultural fest. Unleash your talent, witness captivating performances, and create unforgettable memories.
             </p>
-            <button className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg mb-8 hover:shadow-purple-500/50">
+            <a href="/Events" className="inline-block py-3 px-8 rounded-full text-lg font-bold transition duration-300 ease-in-out transform hover:scale-105 shadow-lg bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white mb-8">
               Explore Events
-            </button>
+            </a>
 
             {/* Register Section within Hero */}
-            <div className="carnival-card p-8 rounded-xl shadow-xl animate-fade-in-up border border-white/20 max-w-2xl mx-auto mt-8">
-              <h2 className="text-3xl md:text-4xl font-bold cosmic-text mb-4">
+            <div className="p-8 rounded-2xl shadow-2xl animate-fade-in-up border border-purple-600/50 max-w-2xl mx-auto bg-gradient-to-br from-purple-950/60 to-indigo-950/60 backdrop-blur-md transition-all duration-300 hover:scale-[1.02] hover:shadow-purple-500/30">
+              <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-fuchsia-400 to-rose-400 text-transparent bg-clip-text mb-4">
                 Ready to be a part of Sabrang '25?
               </h2>
               <p className="text-lg text-gray-300 mb-6">
                 Don't miss out on the excitement! Register now to secure your spot and participate in various competitions and workshops.
               </p>
-              <button className="bg-gradient-to-r from-green-400 to-cyan-400 hover:from-green-500 hover:to-cyan-500 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg hover:shadow-cyan-500/50">
+              <a href="/Signup" className="inline-block py-3 px-8 rounded-full text-lg font-bold transition duration-300 ease-in-out transform hover:scale-105 shadow-lg bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white">
                 Register Now
-              </button>
+              </a>
             </div>
           </div>
         </section>
+
+      
 
         {/* Flagship Events Section */}
         <section className="min-h-screen">
@@ -70,20 +73,13 @@ export default function Page() {
 
         {/* About Us Section */}
         <section className="min-h-screen">
-          <AboutUs />
+          <FAQ />
         </section>
 
         {/* Contact Section */}
         <section className="min-h-screen">
           <Contact />
         </section>
-      </div>
-
-      {/* Background animation elements */}
-      <div className="fixed top-0 left-0 w-full h-full z-0 opacity-20 pointer-events-none">
-        <div className="absolute w-48 h-48 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000 top-1/4 left-1/4"></div>
-        <div className="absolute w-48 h-48 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000 bottom-1/3 right-1/4"></div>
-        <div className="absolute w-48 h-48 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-6000 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
       </div>
 
       <Footer />

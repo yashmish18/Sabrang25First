@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center space-x-6">
             <a href="/" className="text-white font-medium hover:text-yellow-300 transition">Home</a>
             <a href="/Events" className="text-white font-medium hover:text-yellow-300 transition">Events</a>
-            <a href="/FlagshipEvent" className="text-white font-medium hover:text-yellow-300 transition">Flagship Event</a>
+            
             <a href="/Gallery" className="text-white font-medium hover:text-yellow-300 transition">Gallery</a>
             <a href="/Team" className="text-white font-medium hover:text-yellow-300 transition">Team</a>
             <a href="/FAQ" className="text-white font-medium hover:text-yellow-300 transition">FAQ</a>
@@ -44,7 +44,7 @@ const Navbar: React.FC = () => {
           <div className="md:hidden mt-20 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-xl px-4 py-4 shadow-lg w-11/12 absolute right-0 left-0 mx-auto">
             <a href="/" className="block text-white py-2 hover:text-yellow-300">Home</a>
             <a href="/Events" className="block text-white py-2 hover:text-yellow-300">Events</a>
-            <a href="/FlagshipEvent" className="block text-white py-2 hover:text-yellow-300">Flagship Event</a>
+           
             <a href="/Gallery" className="block text-white py-2 hover:text-yellow-300">Gallery</a>
             <a href="/Team" className="block text-white py-2 hover:text-yellow-300">Team</a>
             <a href="/FAQ" className="block text-white py-2 hover:text-yellow-300">FAQ</a>
@@ -57,8 +57,8 @@ const Navbar: React.FC = () => {
 
       {/* Right: Login/Register Buttons */}
       <div className="flex items-center space-x-4 mr-14">
-        <a href="/Login" className="inline-block bg-white hover:bg-gray-800 text-black hover:text-white font-semibold py-2 px-5 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">Login</a>
-        <a href="/Signup" className="inline-block bg-white hover:bg-gray-800 text-black hover:text-white font-semibold py-2 px-5 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">Register</a>
+        <a href="/Login" className="inline-block bg-white hover:bg-[#333333] text-black hover:text-white font-semibold py-2 px-5 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">Login</a>
+        <a href="/Signup" className="inline-block bg-white hover:bg-[#333333] text-black hover:text-white font-semibold py-2 px-5 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">Register</a>
       </div>
     </nav>
   );
