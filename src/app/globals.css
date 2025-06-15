@@ -70,15 +70,7 @@ body {
 }
 
 /* Carnival Elements */
-.carnival-light {
-  position: absolute;
-  width: 200px; /* Temporarily increased size */
-  height: 200px; /* Temporarily increased size */
-  background: radial-gradient(circle, lime 0%, transparent 70%); /* Temporarily set to lime for visibility */
-  filter: blur(20px); /* Increased blur for prominence */
-  opacity: 0.5; /* Increased opacity for prominence */
-  animation: float 6s ease-in-out infinite;
-}
+
 
 @keyframes float {
   0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -110,7 +102,7 @@ body {
 }
 
 .carnival-card:hover {
-  transform: translateY(-5px) rotate(2deg);
+  transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(246, 224, 94, 0.2);
 }
 

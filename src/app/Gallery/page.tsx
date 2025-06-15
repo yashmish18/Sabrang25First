@@ -1,5 +1,6 @@
 import React from 'react';
 import { InfiniteMovingCards } from '../../../components/infinite-moving-cards';
+import { InfiniteMovingImages } from '../../../components/infinite-moving-images';
 
 const testimonials1 = [
   {
@@ -57,6 +58,29 @@ const testimonials2 = [
   }
 ];
 
+const images = [
+  {
+    image: '/images/building-6011756_1280.jpg',
+    alt: 'Building 1',
+  },
+  {
+    image: '/images/building-6011756_1280.jpg',
+    alt: 'Building 2',
+  },
+  {
+    image: '/images/building-6011756_1280.jpg',
+    alt: 'Building 3',
+  },
+  {
+    image: '/images/building-6011756_1280.jpg',
+    alt: 'Building 4',
+  },
+  {
+    image: '/images/building-6011756_1280.jpg',
+    alt: 'Building 5',
+  },
+];
+
 const Gallery = () => {
   return (
     <div className="min-h-screen text-white font-sans flex flex-col items-center justify-center px-4 py-20">
@@ -68,23 +92,22 @@ const Gallery = () => {
       </p>
       
       <div className="w-full space-y-4">
-        <InfiniteMovingCards
-          items={testimonials1}
+        <InfiniteMovingImages
+          items={images}
           direction="left"
           speed="normal"
           pauseOnHover={true}
-          className="mt-8"
+          className="mt-8 h-[300px]"
         />
-        <InfiniteMovingCards
-          items={testimonials2}
+        <InfiniteMovingImages
+          items={images}
           direction="right"
           speed="normal"
           pauseOnHover={true}
-          className="mt-8"
+          className="mt-8 h-[300px]"
         />
       </div>
       
-      {/* Add image gallery here */}
     </div>
   );
 };
