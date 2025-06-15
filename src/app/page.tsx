@@ -21,32 +21,32 @@ export default function Page() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black text-white font-sans">
+    <div className="min-h-screen text-white font-sans">
       <Navbar />
       
       <div className="flex flex-col pt-20">
         {/* Hero Section */}
-        <section className="min-h-screen flex items-center justify-center">
-          <div className="max-w-6xl mx-auto text-center">
-            <h1 className="text-5xl md:text-7xl font-extrabold mb-4 leading-tight drop-shadow-lg animate-fade-in-down">
-              Welcome to <span className="text-purple-400">Sabrang '25</span>
+        <section className="min-h-screen flex items-center justify-center px-4 py-16 text-center relative">
+          <div className="max-w-6xl mx-auto">
+            <h1 className="text-5xl md:text-7xl font-extrabold mb-4 leading-tight drop-shadow-lg animate-fade-in-down cosmic-text">
+              Welcome to <span className="">Sabrang '25</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
               Experience the grandest cultural fest. Unleash your talent, witness captivating performances, and create unforgettable memories.
             </p>
-            <button className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg mb-8">
+            <button className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg mb-8 hover:shadow-purple-500/50">
               Explore Events
             </button>
 
             {/* Register Section within Hero */}
-            <div className="bg-gray-800 bg-opacity-70 p-8 rounded-xl shadow-xl animate-fade-in-up border border-gray-700 max-w-2xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-purple-300 mb-4">
+            <div className="carnival-card p-8 rounded-xl shadow-xl animate-fade-in-up border border-white/20 max-w-2xl mx-auto mt-8">
+              <h2 className="text-3xl md:text-4xl font-bold cosmic-text mb-4">
                 Ready to be a part of Sabrang '25?
               </h2>
               <p className="text-lg text-gray-300 mb-6">
                 Don't miss out on the excitement! Register now to secure your spot and participate in various competitions and workshops.
               </p>
-              <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
+              <button className="bg-gradient-to-r from-green-400 to-cyan-400 hover:from-green-500 hover:to-cyan-500 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg hover:shadow-cyan-500/50">
                 Register Now
               </button>
             </div>

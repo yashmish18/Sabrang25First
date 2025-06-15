@@ -8,14 +8,14 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="w-full fixed top-4 z-50 flex items-center justify-between px-6">
+    <nav className="w-full fixed top-4 z-50 flex items-center justify-between pl-25 pr-0">
       {/* Left: Logo */}
       <div className="flex items-center ml-14">
         <Image src={Logo} alt="Logo" width={70} height={70} />
       </div>
 
       {/* Center: Main Navbar Links */}
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center left">
         <div className="flex items-center justify-between w-fit px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full shadow-lg">
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center space-x-6">

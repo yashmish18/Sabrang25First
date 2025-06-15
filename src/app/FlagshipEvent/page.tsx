@@ -56,7 +56,7 @@ const FlagshipEvent: React.FC = () => {
   return (
     <section className="min-h-screen py-20">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-white mb-12">Flagship Events</h2>
+        <h2 className="text-4xl font-bold text-center cosmic-text mb-12">Flagship Events</h2>
         <div
           ref={scrollRef}
           className="relative h-[600px] flex overflow-x-auto scrollbar-hide space-x-8 p-4"
@@ -65,7 +65,7 @@ const FlagshipEvent: React.FC = () => {
           {events.map((event) => (
             <div
               key={event.id}
-              className="flex-none w-80 min-w-[320px] h-[500px] bg-gray-800 rounded-lg shadow-lg flex flex-col"
+              className="flex-none w-80 min-w-[320px] h-[500px] carnival-card rounded-lg shadow-lg flex flex-col"
             >
               <div className="w-full h-[300px] relative">
                 <img
@@ -77,11 +77,11 @@ const FlagshipEvent: React.FC = () => {
               </div>
               <div className="p-4 flex-1 flex flex-col justify-between">
                 <div>
-                  <h3 className="text-xl font-semibold text-white">{event.title}</h3>
+                  <h3 className="text-xl font-semibold cosmic-text">{event.title}</h3>
                   <p className="text-gray-400">{event.date}</p>
                   <p className="text-gray-300 mt-2">{event.description}</p>
                 </div>
-                <button className="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+                <button className="mt-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded hover:from-blue-600 hover:to-purple-600 hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300">
                   Learn More
                 </button>
               </div>
