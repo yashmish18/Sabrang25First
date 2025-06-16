@@ -56,7 +56,7 @@ body {
 /* Animated Stars */
 .star {
   position: absolute;
-  background: rgb(255, 255, 255); /* Temporarily set to red for visibility */
+  background: rgb(255, 255, 255); 
   border-radius: 50%;
   animation: twinkle var(--duration) infinite;
   opacity: 0;
