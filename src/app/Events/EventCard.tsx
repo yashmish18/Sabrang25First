@@ -45,14 +45,15 @@ export default function EventCard({ event }: EventProps) {
           <CardItem
             translateZ={20}
             as="a"
-            href="#"
+            href="/Homepage.tsx"
             className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
           >
             {event.date} →
           </CardItem>
           <CardItem
             translateZ={20}
-            as="button"
+            as="a"
+            href="/Signup"
             className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
           >
             {event.registration || "Register Now"}
