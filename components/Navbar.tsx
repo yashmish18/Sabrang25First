@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Logo from '../public/images/Logo.svg';
+import Link from 'next/link';
+import Button from './Button';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +12,7 @@ const Navbar: React.FC = () => {
     <nav className="w-full fixed top-4 z-50 flex items-center justify-between pl-4 pr-4 sm:pl-25 sm:pr-0">
       {/* Left: Logo */}
       <div className="flex items-center ml-4 sm:ml-14">
+        <Link href="/" className="mr-4"></Link>
         <Image src={Logo} alt="Logo" width={70} height={70} />
       </div>
 
@@ -53,10 +56,12 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Right: Login/Register Buttons */}
+
       <div className="hidden md:flex items-center space-x-4 mr-14">
-        <a href="/Login" className="inline-block bg-white hover:bg-[#333333] text-black hover:text-white font-semibold py-2 px-5 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">Login</a>
-        <a href="/Signup" className="inline-block bg-white hover:bg-[#333333] text-black hover:text-white font-semibold py-2 px-5 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">Register</a>
-      </div>
+  <Button text="Login" href="/Login" />
+  <Button text="Register" href="/Signup" />
+</div>
+
     </nav>
   );
 };
