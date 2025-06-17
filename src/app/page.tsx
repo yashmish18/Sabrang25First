@@ -10,6 +10,7 @@ import GradientText from '../../components/GradientText'
 import Contact from "./Contact/page";
 import { useEffect, useState } from "react";
 import FAQ from "./FAQ/page";
+import Sponsors from "./Sponsors/page";
 
 export default function Page() {
   const [isMounted, setIsMounted] = useState(false);
@@ -76,14 +77,16 @@ export default function Page() {
           <Gallery />
         </section>
 
-        {/* Team Section */}
-        <section className="min-h-screen">
-          <Team />
-        </section>
+       
 
-        {/* About Us Section */}
+        {/* FAQ */}
         <section className="min-h-screen">
           <FAQ />
+        </section>
+
+        {/* Sponnsorship page */}
+        <section className="min-h-scren">
+          <Sponsors />
         </section>
 
         {/* Contact Section */}

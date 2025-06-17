@@ -113,7 +113,7 @@ const FlagshipEvent: React.FC = () => {
                 />
               </PixelCard>
               <div className="absolute bottom-0 w-full p-4 bg-gradient-to-t from-black via-black/70 to-transparent flex flex-col justify-end text-white z-10">
-                <div className={`transition-opacity duration-300 ${hoveredCardId === event.id ? 'opacity-0' : 'opacity-100'}`}>
+                <div className="bg-black/50 p-2 rounded-lg">
                   <h3 className="text-xl font-semibold cosmic-text">{event.title}</h3>
                   <p className="text-gray-300">{event.date}</p>
                   <p className="text-gray-200 mt-2">{event.description}</p>
