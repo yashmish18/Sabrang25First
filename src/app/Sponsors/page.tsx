@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { motion } from 'framer-motion';
-import TiltedCard from '../../../components/TiltedCard';
+import { PinContainer } from '../../../components/PinContainer';
 
 
 const sponsors = [
@@ -102,25 +102,28 @@ export default function Sponsors() {
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.2, duration: 0.8 }}
                     >
-                      <TiltedCard
-                        imageSrc={sponsor.image}
-                        altText={sponsor.name}
-                        captionText={sponsor.description}
-                        containerHeight="400px"
-                        imageHeight="400px"
-                        imageWidth="100%"
-                        scaleOnHover={1.05}
-                        rotateAmplitude={10}
-                        showTooltip={true}
-                        overlayContent={
-                          <div className="absolute inset-0 bg-black/50 rounded-[15px] flex items-center justify-center p-4">
-                            <h3 className="text-xl font-semibold text-white text-center">
-                              {sponsor.name}
-                            </h3>
+                      <PinContainer
+                        title={sponsor.name}
+                        href={`/sponsors/${sponsor.id}`}
+                      >
+                        <div className="flex basis-full flex-col p-4 tracking-tight text-slate-100/50 w-[20rem] h-[20rem]">
+                          <h3 className="!pb-2 !m-0 font-bold text-base text-slate-100">
+                            {sponsor.name}
+                          </h3>
+                          <div className="text-base !m-0 !p-0 font-normal">
+                            <span className="text-slate-500 ">
+                              {sponsor.description}
+                            </span>
                           </div>
-                        }
-                        displayOverlayContent={true}
-                      />
+                          <div className="flex flex-1 w-full rounded-lg mt-4 bg-gradient-to-br from-violet-500 via-purple-500 to-blue-500">
+                            <img
+                              src={sponsor.image}
+                              alt={sponsor.name}
+                              className="h-full w-full object-cover rounded-lg"
+                            />
+                          </div>
+                        </div>
+                      </PinContainer>
                     </motion.div>
                   ))}
               </div>
