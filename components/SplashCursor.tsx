@@ -53,7 +53,7 @@ function pointerPrototype(): Pointer {
 }
 
 export default function SplashCursor({
-  SIM_RESOLUTION = 128,
+  SIM_RESOLUTION = 150,
   DYE_RESOLUTION = 1440,
   CAPTURE_RESOLUTION = 512,
   DENSITY_DISSIPATION = 3.5,
