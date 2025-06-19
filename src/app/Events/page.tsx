@@ -7,7 +7,7 @@ const categories = [
   {
     name: 'Cultural',
     events: [
-      { title: 'Panache', image: '/events/panache.jpg', description: 'A grand fashion show showcasing creativity and style.', date: 'March 15, 2025', prize: '₹50,000', registration: 'Team of 4-6' },
+      { title: 'Panache', image: '/images/building-6011756_1280.jpg', description: 'A grand fashion show showcasing creativity and style.', date: 'March 15, 2025', prize: '₹50,000', registration: 'Team of 4-6' },
       { title: 'Band Jam', image: '/events/bandjam.jpg', description: 'Battle of the bands - rock, metal, and fusion.', date: 'March 16, 2025', prize: '₹40,000', registration: 'Team of 4-8' },
       { title: 'Fashion Show', image: '/events/fashionshow.jpg', description: 'Showcase your unique style and creativity.', date: 'March 17, 2025', prize: '₹35,000', registration: 'Team of 3-5' },
       { title: 'Street Play', image: '/events/streetplay.jpg', description: 'Express social issues through street theater.', date: 'March 18, 2025', prize: '₹30,000', registration: 'Team of 8-12' },
