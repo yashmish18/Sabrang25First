@@ -176,7 +176,7 @@ export default function EventCard({ event, outline }: EventProps) {
   else if (outline === 'silver') borderGradient = 'bg-gradient-to-r from-gray-300 via-gray-100 to-gray-400';
 
   return (
-    <div className={cn('relative p-2 rounded-2xl group card-border-gradient', borderGradient)}>
+    <div className={cn('relative p-2 rounded-2xl group metallic-border', borderGradient)}>
       <div className="w-96 h-[32rem] bg-black rounded-xl p-6 relative z-10 flex flex-col overflow-hidden">
         <CardContainer className="inter-var">
           <CardBody className="w-full h-full bg-transparent p-0">
@@ -226,6 +226,25 @@ export default function EventCard({ event, outline }: EventProps) {
         .group:hover.card-border-gradient,
         .group:focus.card-border-gradient {
           background: transparent !important;
+        }
+        .metallic-border {
+          position: relative;
+        }
+        .metallic-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          border-radius: 1.25rem; /* match rounded-2xl */
+          padding: 2px;
+          background: ${outline === 'gold'
+            ? 'linear-gradient(120deg, #fffbe6 0%, #ffe066 20%, #ffd700 40%, #fffbe6 60%, #ffd700 80%, #fffbe6 100%)'
+            : 'linear-gradient(120deg, #f8f8f8 0%, #e0e0e0 20%, #b0b0b0 40%, #f8f8f8 60%, #b0b0b0 80%, #f8f8f8 100%)'};
+          -webkit-mask:
+            linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
         }
       `}</style>
     </div>
