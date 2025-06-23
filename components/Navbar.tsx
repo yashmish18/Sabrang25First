@@ -12,8 +12,9 @@ const Navbar: React.FC = () => {
     <nav className="w-full fixed top-4 z-50 flex items-center justify-between pl-4 pr-4 sm:pl-25 sm:pr-0">
       {/* Left: Logo */}
       <div className="flex items-center ml-4 sm:ml-14">
-        <Link href="/" className="mr-4"></Link>
-        <Image src={Logo} alt="Logo" width={70} height={70} />
+        <Link href="/">
+          <Image src={Logo} alt="Logo" width={70} height={70} className="cursor-pointer" />
+        </Link>
       </div>
 
       {/* Center: Main Navbar Links */}
