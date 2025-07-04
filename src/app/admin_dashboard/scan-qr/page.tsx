@@ -30,6 +30,7 @@ export default function ScanQR() {
     if (scanning && scannerRef.current) {
       const runScanner = async () => {
         const { Html5Qrcode } = await import("html5-qrcode");
+        if (!scannerRef.current) return;
         html5QrCodeRef.current = new Html5Qrcode(scannerRef.current.id);
         html5QrCodeRef.current
           .start(
@@ -76,7 +77,15 @@ export default function ScanQR() {
               Start Camera
             </button>
           ) : (
-            <div ref={scannerRef} id="qr-scanner" className="w-full aspect-square bg-black rounded-lg border border-white/20 flex items-center justify-center" />
+            <>
+              <div ref={scannerRef} id="qr-scanner" className="w-full aspect-square bg-black rounded-lg border border-white/20 flex items-center justify-center" />
+              <button
+                onClick={() => { setScanning(false); router.push('/admin_dashboard'); }}
+                className="w-full mt-4 py-3 px-6 rounded-full text-lg font-bold transition duration-300 ease-in-out transform hover:scale-105 shadow-lg bg-gradient-to-r from-rose-400 to-fuchsia-400 hover:from-rose-500 hover:to-fuchsia-500 text-white"
+              >
+                Exit
+              </button>
+            </>
           )}
           <p className="text-gray-300 text-center text-sm mt-2">Allow camera access to scan a QR code for event check-in.</p>
         </div>
