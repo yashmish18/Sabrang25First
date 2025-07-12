@@ -213,10 +213,10 @@ export default function EventCard({ event, outline }: EventProps) {
               <CardItem
                 translateZ={60}
                 as="a"
-                href="/Signup"
+                href="/Events/rules"
                 className="px-6 py-2 rounded-xl bg-white text-black text-base font-bold font-['Playfair_Display'] shadow"
               >
-                {event.registration || "Register Now"}
+                Rules
               </CardItem>
             </div>
           </CardBody>
