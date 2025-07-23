@@ -14,24 +14,41 @@ const Navbar: React.FC = () => {
   // Check authentication status on component mount
   useEffect(() => {
     checkAuthStatus();
+    
+    // Listen for login/logout events
+    const handleAuthChange = () => {
+      checkAuthStatus();
+    };
+    
+    window.addEventListener('userLoggedIn', handleAuthChange);
+    window.addEventListener('userLoggedOut', handleAuthChange);
+    
+    return () => {
+      window.removeEventListener('userLoggedIn', handleAuthChange);
+      window.removeEventListener('userLoggedOut', handleAuthChange);
+    };
   }, []);
 
   const checkAuthStatus = async () => {
     try {
+      console.log('Checking authentication status...');
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/user`, {
         credentials: 'include'
       });
       
       if (response.ok) {
         const userData = await response.json();
+        console.log('User authenticated:', userData.email);
         setIsAuthenticated(true);
         setIsAdmin(userData.isAdmin || false);
         setUserEmail(userData.email);
       } else {
+        console.log('User not authenticated, status:', response.status);
         setIsAuthenticated(false);
         setIsAdmin(false);
       }
     } catch (error) {
+      console.log('Auth check error:', error);
       setIsAuthenticated(false);
       setIsAdmin(false);
     }
@@ -46,6 +63,10 @@ const Navbar: React.FC = () => {
       setIsAuthenticated(false);
       setIsAdmin(false);
       setUserEmail('');
+      
+      // Dispatch custom event to notify other components about logout
+      window.dispatchEvent(new CustomEvent('userLoggedOut'));
+      
       window.location.href = '/';
     } catch (error) {
       console.error('Logout error:', error);

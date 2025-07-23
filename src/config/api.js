@@ -9,7 +9,7 @@ const config = {
   FLASK_API_URL: 'http://localhost:5000',
   
   // Current backend (change this to switch between backends)
-  API_BASE_URL: 'http://localhost:5000', // Flask backend by default
+  API_BASE_URL: 'https://sabrangselfbackend-production.up.railway.app', // Flask backend by default
 };
 
 export default config;

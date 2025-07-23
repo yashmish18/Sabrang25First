@@ -62,6 +62,9 @@ const Login = () => {
       // If login is successful
       console.log('Login successful:', data);
       
+      // Dispatch custom event to notify navbar about login
+      window.dispatchEvent(new CustomEvent('userLoggedIn'));
+      
       // Redirect to dashboard or home page
       router.push('/dashboard');
       
