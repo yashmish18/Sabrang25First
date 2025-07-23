@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import ProtectedRoute from "../../../components/ProtectedRoute";
 
-export default function AdminDashboard() {
+function AdminDashboard() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center pt-32 pb-16 px-4 text-white font-sans">
       <div className="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl p-10 flex flex-col items-center carnival-card animate-fade-in-up">
@@ -17,8 +18,20 @@ export default function AdminDashboard() {
           <Link href="/admin_dashboard/scan-qr" className="w-full">
             <button className="w-full py-3 px-6 rounded-full text-lg font-bold transition duration-300 ease-in-out transform hover:scale-105 shadow-lg bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white">Scan QR</button>
           </Link>
+          <Link href="/admin_dashboard/users" className="w-full">
+            <button className="w-full py-3 px-6 rounded-full text-lg font-bold transition duration-300 ease-in-out transform hover:scale-105 shadow-lg bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white">View Users</button>
+          </Link>
         </div>
       </div>
     </div>
   );
 } 
+
+// Wrap with admin protection
+export default function ProtectedAdminDashboard() {
+  return (
+    <ProtectedRoute requireAdmin={true}>
+      <AdminDashboard />
+    </ProtectedRoute>
+  );
+}

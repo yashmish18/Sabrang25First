@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -12,56 +13,91 @@ const Signup = () => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [signupError, setSignupError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Reset errors
+    setUsernameError('');
+    setEmailError('');
+    setPasswordError('');
+    setConfirmPasswordError('');
+    setSignupError('');
+
+    // Validation
     let isValid = true;
 
-    // Username validation
     if (!username) {
       setUsernameError('Username is required.');
       isValid = false;
-    } else {
-      setUsernameError('');
+    } else if (username.length < 3) {
+      setUsernameError('Username must be at least 3 characters.');
+      isValid = false;
     }
 
-    // Email validation
     if (!email) {
       setEmailError('Email is required.');
       isValid = false;
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)) {
       setEmailError('Please enter a valid email address.');
       isValid = false;
-    } else {
-      setEmailError('');
     }
 
-    // Password validation
     if (!password) {
       setPasswordError('Password is required.');
       isValid = false;
     } else if (password.length < 6) {
       setPasswordError('Password must be at least 6 characters long.');
       isValid = false;
-    } else {
-      setPasswordError('');
     }
 
-    // Confirm Password validation
     if (!confirmPassword) {
       setConfirmPasswordError('Confirm password is required.');
       isValid = false;
     } else if (confirmPassword !== password) {
       setConfirmPasswordError('Passwords do not match.');
       isValid = false;
-    } else {
-      setConfirmPasswordError('');
     }
 
-    if (isValid) {
-      // Proceed with signup logic
-      console.log('Signup successful', { username, email, password, referralCode });
-      // For demonstration, you might navigate or show a success message
+    if (!isValid) return;
+
+    try {
+      setIsLoading(true);
+      
+      const response = await fetch('http://localhost:5000/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+          referralCode: referralCode || undefined // Send undefined if empty
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Signup failed');
+      }
+
+      // If signup is successful
+      console.log('Signup successful:', data);
+      
+      // Redirect to login page or dashboard
+      router.push('/Login');
+      
+    } catch (error) {
+      console.error('Signup error:', error);
+      setSignupError(error instanceof Error ? error.message : 'Signup failed. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -76,6 +112,13 @@ const Signup = () => {
             Sign up
           </h2>
         </div>
+
+        {/* Display signup error if any */}
+        {signupError && (
+          <div className="p-3 bg-red-500/20 text-red-300 rounded-md text-sm">
+            {signupError}
+          </div>
+        )}
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" defaultValue="true" />
@@ -175,9 +218,12 @@ const Signup = () => {
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition duration-300 ease-in-out"
+              disabled={isLoading}
+              className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition duration-300 ease-in-out ${
+                isLoading ? 'opacity-70 cursor-not-allowed' : ''
+              }`}
             >
-              Sign up
+              {isLoading ? 'Creating account...' : 'Sign up'}
             </button>
           </div>
         </form>
@@ -190,11 +236,17 @@ const Signup = () => {
 
         {/* Social Buttons */}
         <div className="space-y-3">
-          <button className="w-full flex justify-center items-center py-2 px-4 border border-gray-600 rounded-md shadow-sm text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-300 ease-in-out">
+          <button 
+            type="button"
+            className="w-full flex justify-center items-center py-2 px-4 border border-gray-600 rounded-md shadow-sm text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-300 ease-in-out"
+          >
             <img src="/images/google-icon.svg" alt="Google" className="mr-2 h-5 w-5" />
             Sign up with Google
           </button>
-          <button className="w-full flex justify-center items-center py-2 px-4 border border-gray-600 rounded-md shadow-sm text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-300 ease-in-out">
+          <button 
+            type="button"
+            className="w-full flex justify-center items-center py-2 px-4 border border-gray-600 rounded-md shadow-sm text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-300 ease-in-out"
+          >
             <img src="/images/facebook-icon.svg" alt="Facebook" className="mr-2 h-5 w-5" />
             Sign up with Facebook
           </button>

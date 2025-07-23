@@ -1,40 +1,75 @@
 'use client';
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [loginError, setLoginError] = useState('');
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    let isValid = true;
-
+    
+    // Reset errors
+    setEmailError('');
+    setPasswordError('');
+    setLoginError('');
+    
+    // Validate email
     if (!email) {
       setEmailError('Email is required.');
-      isValid = false;
+      return;
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)) {
       setEmailError('Please enter a valid email address.');
-      isValid = false;
-    } else {
-      setEmailError('');
+      return;
     }
-
+    
+    // Validate password
     if (!password) {
       setPasswordError('Password is required.');
-      isValid = false;
+      return;
     } else if (password.length < 6) {
       setPasswordError('Password must be at least 6 characters long.');
-      isValid = false;
-    } else {
-      setPasswordError('');
+      return;
     }
 
-    if (isValid) {
-      // Proceed with login logic
-      console.log('Login successful', { email, password });
-      // For demonstration, you might navigate or show a success message
+    try {
+      setIsLoading(true);
+      
+      // Send login request to your Node.js server
+      const response = await fetch('http://localhost:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials:'include',
+        body: JSON.stringify({
+          email,
+          password
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      // If login is successful
+      console.log('Login successful:', data);
+      
+      // Redirect to dashboard or home page
+      router.push('/dashboard');
+      
+    } catch (error) {
+      console.error('Login error:', error);
+      setLoginError(error instanceof Error ? error.message : 'Login failed. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -42,7 +77,6 @@ const Login = () => {
     <div className="min-h-screen text-white font-sans flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative z-10">
       <div className="max-w-md w-full space-y-6 p-8 rounded-lg shadow-md border border-neutral-700 bg-neutral-900/80">
         <div className="text-center">
-          {/* Placeholder for Sitmark-like logo */}
           <div className="text-white text-3xl font-bold mb-4">
             Sabrang
           </div>
@@ -50,8 +84,16 @@ const Login = () => {
             Sign in
           </h2>
         </div>
+
+        {/* Display login error if any */}
+        {loginError && (
+          <div className="p-3 bg-red-500/20 text-red-300 rounded-md text-sm">
+            {loginError}
+          </div>
+        )}
+
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <input type="hidden" name="remember" defaultValue="true" />
+          {/* Existing form fields remain the same */}
           <div className="space-y-4">
             <div>
               <label htmlFor="email-address" className="block text-sm font-medium text-gray-300">
@@ -87,6 +129,7 @@ const Login = () => {
             </div>
           </div>
 
+          {/* Remember me and forgot password */}
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input
@@ -99,7 +142,6 @@ const Login = () => {
                 Remember me
               </label>
             </div>
-
             <div className="text-sm">
               <a href="#" className="font-medium text-gray-400 hover:text-gray-300">
                 Forgot your password?
@@ -107,16 +149,21 @@ const Login = () => {
             </div>
           </div>
 
+          {/* Submit button */}
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-neutral-700 hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-500 transition duration-300 ease-in-out"
+              disabled={isLoading}
+              className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-neutral-700 hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-500 transition duration-300 ease-in-out ${
+                isLoading ? 'opacity-70 cursor-not-allowed' : ''
+              }`}
             >
-              Sign In
+              {isLoading ? 'Signing in...' : 'Sign In'}
             </button>
           </div>
         </form>
 
+        {/* Social login options */}
         <div className="relative flex justify-center text-sm">
           <span className="px-2 bg-neutral-900/80 text-gray-400">
             or
@@ -135,6 +182,7 @@ const Login = () => {
           </button>
         </div>
 
+        {/* Sign up link */}
         <div className="text-center text-sm text-gray-400">
           Don't have an account? <a href="/Signup" className="font-medium text-gray-400 hover:text-gray-300">Sign up</a>
         </div>
@@ -143,4 +191,4 @@ const Login = () => {
   );
 };
 
-export default Login; 
+export default Login;

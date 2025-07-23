@@ -1,45 +1,63 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaUser, FaCalendarAlt, FaTicketAlt, FaHistory, FaCog, FaWhatsapp } from 'react-icons/fa';
-import Image from 'next/image'; // Added for QR code placeholder
+import Image from 'next/image';
+import ProtectedRoute from '../../../components/ProtectedRoute';
 
-export default function Dashboard() {
-  // Mock user data - replace with actual user data from your auth system
-  const userData = {
-    name: "John Doe",
-    email: "john@example.com",
-    profileImage: "/images/user-avatar.jpg",
-    registeredEvents: [
-      { id: 1, name: "Dance Competition", date: "2024-03-15", whatsappLink: "https://wa.me/1234567890", status: "upcoming" },
-      { id: 2, name: "Music Festival", date: "2024-03-20", whatsappLink: "https://wa.me/1234567890", status: "upcoming" },
-    ],
-    pastEvents: [
-      { id: 3, name: "Cultural Night", date: "2024-02-15", whatsappLink: "https://wa.me/1234567890", status: "completed" },
-    ],
-    transactionId: "TXN1234567890",
-  };
+interface Event {
+  _id: string;
+  name: string;
+  coordinator: string;
+  mobile: string;
+  qrID: string;
+  date: string;
+  status: string;
+  whatsappLink: string;
+}
 
-  // Mock event coordinators data
-  const eventCoordinators: { [eventName: string]: { name: string; contact: string }[] } = {
-    "Dance Competition": [
-      { name: "Alice Smith", contact: "+91-9876543210" },
-      { name: "Bob Johnson", contact: "+91-9123456780" },
-    ],
-    "Music Festival": [
-      { name: "Carol Lee", contact: "+91-9988776655" },
-    ],
-    "Cultural Night": [
-      { name: "David Brown", contact: "+91-9001122334" },
-    ],
-  };
+interface UserData {
+  _id:String,
+  name: string;
+  email: string;
+  profileImage: string;
+  registeredEvents: Event[];
+  transactionId: string;
+  hasEntered: boolean;
+  entryTime: string | null;
+}
 
-  // Transaction ID should come from user data or props in a real app
-  // const transactionId = "TXN1234567890";
-  const transactionId = userData.transactionId || "---";
+function Dashboard() {
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/user', {
+          credentials: 'include'
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch user data');
+        }
+
+        const data = await response.json();
+        setUserData(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load data');
+        console.error('Error fetching user data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleShare = async () => {
-    const qrCodeImage = '${window.location.origin}/images/qrcode-placeholder.png'; // Get full URL
+    const qrCodeImage = `${window.location.origin}/images/qrcode-placeholder.png`;
     try {
       if (navigator.share) {
         const response = await fetch(qrCodeImage);
@@ -61,10 +79,48 @@ export default function Dashboard() {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto"></div>
+          <p className="mt-4">Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white flex items-center justify-center">
+        <div className="text-center p-4 bg-red-500/20 rounded-lg max-w-md">
+          <h2 className="text-xl font-bold mb-2">Error</h2>
+          <p>{error}</p>
+          <button 
+            onClick={() => window.location.reload()}
+            className="mt-4 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!userData) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <p>No user data available</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white py-36 px-4">
       <div className="container mx-auto">
-        {/* Header Section - User Profile Name Only */}
+        {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -73,7 +129,7 @@ export default function Dashboard() {
         >
           <div className="w-16 h-16 rounded-full bg-gray-700 overflow-hidden">
             <img
-              src={userData.profileImage}
+              src={userData.profileImage || "/images/default-avatar.jpg"}
               alt="Profile"
               className="w-full h-full object-cover"
             />
@@ -87,9 +143,9 @@ export default function Dashboard() {
 
         {/* Main Content Area */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Column: Participated Events and Quick Actions */}
+          {/* Left Column */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Participated Events Section */}
+            {/* Upcoming Events Section */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -97,32 +153,36 @@ export default function Dashboard() {
             >
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 mb-8">
                 <h2 className="text-xl font-bold mb-4">Upcoming Events</h2>
-                <div className="space-y-4">
-                  {userData.registeredEvents.map((event) => (
-                    <div
-                      key={event.id}
-                      className="bg-white/5 p-4 rounded-lg flex justify-between items-center"
-                    >
-                      <div>
-                        <h3 className="font-semibold">{event.name}</h3>
-                        <p className="text-gray-400">{event.date}</p>
-                      </div>
-                      <a
-                        href={event.whatsappLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
+                {userData.registeredEvents.length > 0 ? (
+                  <div className="space-y-4">
+                    {userData.registeredEvents.map((event) => (
+                      <div
+                        key={event._id}
+                        className="bg-white/5 p-4 rounded-lg flex justify-between items-center"
                       >
-                        <FaWhatsapp />
-                        <span>WhatsApp</span>
-                      </a>
-                    </div>
-                  ))}
-                </div>
+                        <div>
+                          <h3 className="font-semibold">{event.name}</h3>
+                          <p className="text-gray-400">{event.date}</p>
+                        </div>
+                        <a
+                          href={event.whatsappLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
+                        >
+                          <FaWhatsapp />
+                          <span>WhatsApp</span>
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-gray-400">No upcoming events</p>
+                )}
               </div>
             </motion.div>
 
-            {/* Quick Actions replaced with Event Coordinators */}
+            {/* Event Coordinators Section */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -131,19 +191,17 @@ export default function Dashboard() {
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-6">
                 <h2 className="text-xl font-bold mb-4">Event Coordinators</h2>
                 <div className="space-y-6">
-                  {userData.registeredEvents.concat(userData.pastEvents).map((event: { id: number; name: string }) => (
-                    <div key={event.id} className="mb-2">
+                  {[...userData.registeredEvents].map((event) => (
+                    <div key={event._id} className="mb-2">
                       <h3 className="font-semibold text-lg mb-1">{event.name}</h3>
-                      <ul className="ml-4 list-disc text-gray-300">
-                        {(eventCoordinators[event.name] || []).map((coordinator: { name: string; contact: string }, idx: number) => (
-                          <li key={idx} className="mb-1">
-                            <span className="font-medium text-white">{coordinator.name}</span>: <span className="text-green-400">{coordinator.contact}</span>
-                          </li>
-                        ))}
-                        {!(eventCoordinators[event.name] && eventCoordinators[event.name].length) && (
-                          <li className="text-gray-400">No coordinators listed.</li>
-                        )}
-                      </ul>
+                      <div className="ml-4 text-gray-300">
+                        <p className="mb-1">
+                          <span className="font-medium text-white">Coordinator:</span> {event.coordinator}
+                        </p>
+                        <p>
+                          <span className="font-medium text-white">Contact:</span> <span className="text-green-400">{event.mobile}</span>
+                        </p>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -162,18 +220,23 @@ export default function Dashboard() {
             <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 text-center">
               <h2 className="text-xl font-bold mb-4">Your Event QR Code</h2>
               <div className="w-64 h-77 mx-auto bg-white p-2 rounded-lg flex items-center justify-center">
-                <Image 
-                  src="/images/qrcode-placeholder.png" 
-                  alt="QR Code Placeholder" 
-                  width={240} 
-                  height={240} 
-                />
+                {
+                  <img
+  src={`http://localhost:5000/api/qrcode/${userData._id}`}
+  alt="QR Code"
+  width={240}
+  height={240}
+  className="object-contain"
+/>
+
+                }
               </div>
               <p className="text-gray-400 mt-4 text-sm">Scan this code for quick event check-in.</p>
-              <p className="text-gray-300 mt-2 text-xs">Transaction ID: <span className="font-mono text-white">{transactionId}</span></p>
               <div className="flex justify-center space-x-4 mt-6">
                 <a
-                  href="/images/qrcode-placeholder.png" // Replace with actual QR code image path from backend
+                  href={ 
+                    `http://localhost:5000/api/qrcode/${userData._id}`
+                  }
                   download="event-qr-code.png"
                   className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
                 >
@@ -192,4 +255,13 @@ export default function Dashboard() {
       </div>
     </div>
   );
-} 
+}
+
+// Wrap the component with ProtectedRoute
+export default function ProtectedDashboard() {
+  return (
+    <ProtectedRoute>
+      <Dashboard />
+    </ProtectedRoute>
+  );
+}

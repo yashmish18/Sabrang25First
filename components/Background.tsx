@@ -11,7 +11,7 @@ const Background: React.FC = () => {
 
     // Create stars
     const createStars = () => {
-      const numberOfStars = 500;
+      const numberOfStars = 1000;
       for (let i = 0; i < numberOfStars; i++) {
         const star = document.createElement('div');
         star.className = 'star';

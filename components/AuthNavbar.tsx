@@ -4,52 +4,132 @@ import Image from 'next/image';
 import Logo from '../public/images/Logo.svg';
 import Link from 'next/link';
 import Button from './Button';
+import { useRouter } from 'next/navigation';
 
-const Navbar: React.FC = () => {
+interface User {
+  _id: string;
+  name: string;
+  email: string;
+  isAdmin?: boolean;
+}
+
+const AuthNavbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [userEmail, setUserEmail] = useState('');
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
-  // Check authentication status on component mount
   useEffect(() => {
     checkAuthStatus();
   }, []);
 
   const checkAuthStatus = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/user`, {
+      const response = await fetch('http://localhost:5000/api/user', {
         credentials: 'include'
       });
-      
+
       if (response.ok) {
         const userData = await response.json();
-        setIsAuthenticated(true);
-        setIsAdmin(userData.isAdmin || false);
-        setUserEmail(userData.email);
+        setUser(userData);
       } else {
-        setIsAuthenticated(false);
-        setIsAdmin(false);
+        setUser(null);
       }
     } catch (error) {
-      setIsAuthenticated(false);
-      setIsAdmin(false);
+      console.error('Auth check failed:', error);
+      setUser(null);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleLogout = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/logout`, {
+      const response = await fetch('http://localhost:5000/logout', {
         method: 'POST',
         credentials: 'include'
       });
-      setIsAuthenticated(false);
-      setIsAdmin(false);
-      setUserEmail('');
-      window.location.href = '/';
+
+      if (response.ok) {
+        setUser(null);
+        router.push('/');
+      }
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error('Logout failed:', error);
     }
+  };
+
+  const renderAuthButtons = () => {
+    if (loading) {
+      return (
+        <div className="hidden md:flex items-center space-x-4 mr-14">
+          <div className="w-20 h-10 bg-gray-600 rounded animate-pulse"></div>
+          <div className="w-20 h-10 bg-gray-600 rounded animate-pulse"></div>
+        </div>
+      );
+    }
+
+    if (user) {
+      return (
+        <div className="hidden md:flex items-center space-x-4 mr-14">
+          {user.isAdmin && (
+            <Link href="/admin_dashboard">
+              <button className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-full transition">
+                Admin
+              </button>
+            </Link>
+          )}
+          <Link href="/dashboard">
+            <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition">
+              Dashboard
+            </button>
+          </Link>
+          <button 
+            onClick={handleLogout}
+            className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-full transition"
+          >
+            Logout
+          </button>
+        </div>
+      );
+    }
+
+    return (
+      <div className="hidden md:flex items-center space-x-4 mr-14">
+        <Button text="Login" href="/Login" />
+        <Button text="Register" href="/Signup" />
+      </div>
+    );
+  };
+
+  const renderMobileAuthButtons = () => {
+    if (user) {
+      return (
+        <>
+          {user.isAdmin && (
+            <Link href="/admin_dashboard" className="block mt-3 bg-gradient-to-r from-red-500 to-red-600 text-white text-center py-2 rounded-full">
+              Admin Dashboard
+            </Link>
+          )}
+          <Link href="/dashboard" className="block mt-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-center py-2 rounded-full">
+            Dashboard
+          </Link>
+          <button 
+            onClick={handleLogout}
+            className="block w-full mt-2 bg-gradient-to-r from-gray-500 to-gray-600 text-white text-center py-2 rounded-full"
+          >
+            Logout
+          </button>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <a href="/Login" className="block mt-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-center py-2 rounded-full">Login</a>
+        <a href="/Signup" className="block mt-2 bg-gradient-to-r from-green-400 to-cyan-400 text-white text-center py-2 rounded-full">Register</a>
+      </>
+    );
   };
 
   return (
@@ -71,16 +151,6 @@ const Navbar: React.FC = () => {
             <a href="/Team" className="text-white font-medium hover:text-yellow-300 transition">Team</a>
             <a href="/FAQ" className="text-white font-medium hover:text-yellow-300 transition">FAQ</a>
             <a href="/Contact" className="text-white font-medium hover:text-yellow-300 transition">Contact</a>
-            
-            {/* Authenticated User Links */}
-            {isAuthenticated && (
-              <>
-                <a href="/dashboard" className="text-white font-medium hover:text-yellow-300 transition">Dashboard</a>
-                {isAdmin && (
-                  <a href="/admin_dashboard" className="text-white font-medium hover:text-yellow-300 transition">Admin</a>
-                )}
-              </>
-            )}
           </div>
 
           {/* Hamburger: Mobile */}
@@ -103,52 +173,15 @@ const Navbar: React.FC = () => {
             <a href="/Team" className="block text-white py-2 hover:text-yellow-300">Team</a>
             <a href="/FAQ" className="block text-white py-2 hover:text-yellow-300">FAQ</a>
             <a href="/Contact" className="block text-white py-2 hover:text-yellow-300">Contact</a>
-            
-            {/* Authenticated Mobile Links */}
-            {isAuthenticated ? (
-              <>
-                <a href="/dashboard" className="block text-white py-2 hover:text-yellow-300">Dashboard</a>
-                {isAdmin && (
-                  <a href="/admin_dashboard" className="block text-white py-2 hover:text-yellow-300">Admin</a>
-                )}
-                <button 
-                  onClick={handleLogout}
-                  className="block w-full text-left mt-3 bg-gradient-to-r from-red-500 to-pink-500 text-white text-center py-2 rounded-full"
-                >
-                  Logout ({userEmail})
-                </button>
-              </>
-            ) : (
-              <>
-                <a href="/Login" className="block mt-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-center py-2 rounded-full">Login</a>
-                <a href="/Signup" className="block mt-2 bg-gradient-to-r from-green-400 to-cyan-400 text-white text-center py-2 rounded-full">Register</a>
-              </>
-            )}
+            {renderMobileAuthButtons()}
           </div>
         )}
       </div>
 
-      {/* Right: Login/Register Buttons or User Menu */}
-      <div className="hidden md:flex items-center space-x-4 mr-14">
-        {isAuthenticated ? (
-          <div className="flex items-center space-x-4">
-            <span className="text-white text-sm">Welcome, {userEmail}</span>
-            <button 
-              onClick={handleLogout}
-              className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-full hover:from-red-600 hover:to-pink-600 transition"
-            >
-              Logout
-            </button>
-          </div>
-        ) : (
-          <>
-            <Button text="Login" href="/Login" />
-            <Button text="Register" href="/Signup" />
-          </>
-        )}
-      </div>
+      {/* Right: Login/Register or User Buttons */}
+      {renderAuthButtons()}
     </nav>
   );
 };
 
-export default Navbar;
+export default AuthNavbar;
