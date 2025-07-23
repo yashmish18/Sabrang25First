@@ -2,12 +2,22 @@
 import React, { useEffect, useState } from "react";
 import { FiEdit, FiExternalLink, FiX, FiSave } from "react-icons/fi";
 
+interface Event {
+  _id: string;
+  name: string;
+  coordinator: string;
+  mobile: string;
+  qrID: string;
+  date: string;
+  whatsappLink: string;
+}
+
 export default function EditEvent() {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
-  const [editingEvent, setEditingEvent] = useState(null);
+  const [editingEvent, setEditingEvent] = useState<Event | null>(null);
   const [isSaving, setIsSaving] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -27,12 +37,12 @@ export default function EditEvent() {
     fetchUserData();
   }, []);
 
-  const handleEdit = (event) => {
+  const handleEdit = (event: Event) => {
     setEditingEvent({ ...event });
   };
 
-  const handleFieldChange = (field, value) => {
-    setEditingEvent(prev => ({ ...prev, [field]: value }));
+  const handleFieldChange = (field: keyof Event, value: string) => {
+    setEditingEvent(prev => prev ? ({ ...prev, [field]: value }) : null);
   };
 
   const handleSave = async () => {
@@ -63,7 +73,7 @@ export default function EditEvent() {
       setEditingEvent(null);
     } catch (err) {
       console.error("Error updating event:", err);
-      setError(err.message || "Failed to update event");
+      setError(err instanceof Error ? err.message : "Failed to update event");
     } finally {
       setIsSaving(false);
     }
