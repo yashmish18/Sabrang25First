@@ -55,7 +55,7 @@ export default function ScanSuccessClient() {
 
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/admin/verify/${userId}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/admin/verify/${userId}`, {
           credentials: 'include'
         });
         if (!response.ok) {
@@ -104,7 +104,7 @@ export default function ScanSuccessClient() {
     
     setAllowingEntry(true);
     try {
-      const response = await fetch(`http://localhost:5000/admin/allow-entry/${userId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/admin/allow-entry/${userId}`, {
         method: 'POST',
         credentials: 'include'
       });

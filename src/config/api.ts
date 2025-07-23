@@ -1,7 +1,7 @@
 // Configuration for API endpoints
 const config = {
   development: {
-    API_BASE_URL: 'https://sabrangselfbackend-production.up.railway.app',
+    API_BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000',
   },
   production: {
     API_BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'https://sabrangselfbackend-production.up.railway.app',

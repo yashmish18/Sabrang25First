@@ -68,7 +68,7 @@ const Signup = () => {
     try {
       setIsLoading(true);
       
-      const response = await fetch('http://localhost:5000/signup', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

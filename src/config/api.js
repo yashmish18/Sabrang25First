@@ -3,7 +3,7 @@
 
 const config = {
   // Node.js backend
-  NODE_API_URL: 'http://localhost:8000',
+  NODE_API_URL: 'https://sabrangselfbackend-production.up.railway.app',
   
   // Flask backend  
   FLASK_API_URL: 'http://localhost:5000',

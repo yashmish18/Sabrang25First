@@ -41,7 +41,7 @@ const Login = () => {
       setIsLoading(true);
       
       // Send login request to your Node.js server
-      const response = await fetch('http://localhost:5000/login', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

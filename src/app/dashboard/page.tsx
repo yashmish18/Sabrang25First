@@ -35,7 +35,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/user', {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/user`, {
           credentials: 'include'
         });
 
@@ -222,7 +222,7 @@ function Dashboard() {
               <div className="w-64 h-77 mx-auto bg-white p-2 rounded-lg flex items-center justify-center">
                 {
                   <img
-  src={`http://localhost:5000/api/qrcode/${userData._id}`}
+  src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/qrcode/${userData._id}`}
   alt="QR Code"
   width={240}
   height={240}
@@ -235,7 +235,7 @@ function Dashboard() {
               <div className="flex justify-center space-x-4 mt-6">
                 <a
                   href={ 
-                    `http://localhost:5000/api/qrcode/${userData._id}`
+                    `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/qrcode/${userData._id}`
                   }
                   download="event-qr-code.png"
                   className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"

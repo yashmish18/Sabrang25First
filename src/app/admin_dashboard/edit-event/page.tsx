@@ -22,7 +22,7 @@ export default function EditEvent() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/admin/events", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/admin/events`, {
           credentials: 'include' // Include cookies for authentication
         });
         const data = await response.json();
@@ -52,7 +52,7 @@ export default function EditEvent() {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:5000/admin/update", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/admin/update`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
