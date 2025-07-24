@@ -26,7 +26,7 @@ export default function ProtectedRoute({ children, requireAdmin = false }: Prote
 
   const checkAuth = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/user', {
+      const response = await fetch('https://surprising-balance-production.up.railway.app/api/user', {
         credentials: 'include'
       });
 

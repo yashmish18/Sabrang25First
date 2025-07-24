@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import createApiUrl from '../../lib/api';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -41,7 +42,7 @@ const Login = () => {
       setIsLoading(true);
       
       // Send login request to your Node.js server
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/login`, {
+      const response = await fetch(createApiUrl('/login'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

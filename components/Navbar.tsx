@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Logo from '../public/images/Logo.svg';
 import Link from 'next/link';
 import Button from './Button';
+import createApiUrl from '../src/lib/api';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +33,7 @@ const Navbar: React.FC = () => {
   const checkAuthStatus = async () => {
     try {
       console.log('Checking authentication status...');
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/user`, {
+      const response = await fetch(createApiUrl('/api/user'), {
         credentials: 'include'
       });
       
@@ -56,7 +57,7 @@ const Navbar: React.FC = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/logout`, {
+      await fetch(createApiUrl('/logout'), {
         method: 'POST',
         credentials: 'include'
       });
