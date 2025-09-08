@@ -129,18 +129,18 @@ export default function EventRulesPage() {
 
 			{/* Sticky Header */}
 			<header className="sticky top-0 z-20  backdrop-blur-xl border-b border-white/5">
-				<div className="max-w-6xl mx-auto px-6 py-4">
+				<div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
 					<div className="flex items-center justify-between">
 						<button 
 							onClick={() => router.back()} 
-							className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+							className="flex items-center gap-2 text-white/80 hover:text-white transition-colors p-2 -m-2 rounded-lg hover:bg-white/5 active:bg-white/10"
 						>
-							<ArrowLeft className="w-4 h-4 " />
-							<span>Back</span>
+							<ArrowLeft className="w-5 h-5" />
+							<span className="text-sm sm:text-base">Back</span>
 						</button>
 						<div className="text-right">
-							<div className="text-sm text-neutral-500">Event Rules</div>
-							<div className="text-lg font-semibold truncate max-w-md">
+							<div className="text-xs sm:text-sm text-neutral-500">Event Rules</div>
+							<div className="text-base sm:text-lg font-semibold truncate max-w-[12rem] sm:max-w-md">
 								{event?.title || 'Guidelines'}
 							</div>
 						</div>
@@ -149,9 +149,9 @@ export default function EventRulesPage() {
 			</header>
 
 			{/* New Hero Section */}
-			<div className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
+			<div className="relative pt-20 pb-12 md:pt-32 md:pb-24 overflow-hidden">
 				<motion.div
-					className="absolute inset-0 bg-cover bg-center opacity-50 blur-sm"
+					className="absolute inset-0 bg-cover bg-center opacity-30 sm:opacity-50 blur-[1px] sm:blur-sm"
 					style={{ 
 						backgroundImage: `url(${event.image})`,
 						y: heroBgY,
@@ -160,7 +160,7 @@ export default function EventRulesPage() {
 				/>
 				<div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-neutral-900" />
 
-				<div className="relative z-10 max-w-6xl mx-auto px-6">
+				<div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
 					<div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
 						{/* Left: Event Card */}
 						<motion.div
@@ -169,7 +169,9 @@ export default function EventRulesPage() {
 							animate={{ opacity: 1, x: 0 }}
 							transition={{ duration: 0.7, ease: 'easeOut' }}
 						>
-							<EventCard event={event} />
+							<div className="w-full max-w-[280px] sm:max-w-none sm:w-auto">
+								<EventCard event={event} />
+							</div>
 						</motion.div>
 
 						{/* Right: Event Details */}
@@ -183,10 +185,10 @@ export default function EventRulesPage() {
 								<Shield className="w-4 h-4" />
 								<span>Official Guidelines</span>
 							</div>
-							<h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-none">
+							<h1 className="text-3xl sm:text-4xl md:text-6xl font-black tracking-tighter leading-none">
 								<span className={`bg-gradient-to-r ${accents.headingGradient} bg-clip-text text-transparent`}>{event.title}</span>
 							</h1>
-							<p className="mt-4 text-lg text-neutral-300 max-w-lg mx-auto md:mx-0">
+							<p className="mt-3 text-base sm:text-lg text-neutral-300 max-w-lg mx-auto md:mx-0">
 								{event.description || 'Everything you need to know to participate successfully. Read carefully and compete with confidence.'}
 							</p>
 						</motion.div>
@@ -196,19 +198,19 @@ export default function EventRulesPage() {
 
 			{/* Main Content with Tabs */}
 			<main className="relative z-10">
-				<div className="max-w-5xl mx-auto px-6 pb-20">
+				<div className="max-w-5xl mx-auto px-4 sm:px-6 pb-16 sm:pb-20">
 					{/* Tab Navigation */}
-					<div className="bg-black/30 backdrop-blur-xl border border-white/10 rounded-xl p-2 flex items-center gap-2 mb-8">
+					<div className="bg-black/30 backdrop-blur-xl border border-white/10 rounded-xl p-2 flex items-center gap-2 mb-6 sm:mb-8">
 						<button
 							onClick={() => setActiveTab('rules')}
-							className={`w-1/2 py-3 rounded-lg text-sm font-semibold flex items-center justify-center gap-2 transition-all duration-300 border-b-2 ${activeTab === 'rules' ? accents.tabActive : accents.tabInactive}`}
+							className={`w-1/2 py-2.5 sm:py-3 rounded-lg text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all duration-300 border-b-2 ${activeTab === 'rules' ? accents.tabActive : accents.tabInactive}`}
 						>
 							<Gavel className="w-4 h-4" />
 							Competition Rules
 						</button>
 						<button
 							onClick={() => setActiveTab('criteria')}
-							className={`w-1/2 py-3 rounded-lg text-sm font-semibold flex items-center justify-center gap-2 transition-all duration-300 border-b-2 ${activeTab === 'criteria' ? accents.tabActive : accents.tabInactive}`}
+							className={`w-1/2 py-2.5 sm:py-3 rounded-lg text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all duration-300 border-b-2 ${activeTab === 'criteria' ? accents.tabActive : accents.tabInactive}`}
 						>
 							<Star className="w-4 h-4" />
 							Judging Criteria
@@ -222,7 +224,7 @@ export default function EventRulesPage() {
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.5 }}
-							className="space-y-4"
+							className="space-y-3 sm:space-y-4"
 						>
 							{rules.map((rule, index) => (
 								<motion.div
@@ -230,10 +232,10 @@ export default function EventRulesPage() {
 									initial={{ opacity: 0, x: -20 }}
 									animate={{ opacity: 1, x: 0 }}
 									transition={{ duration: 0.5, delay: index * 0.1 }}
-									className="bg-white/5 border border-white/10 rounded-lg p-5 flex items-start gap-4"
+									className="bg-white/5 border border-white/10 rounded-lg p-4 sm:p-5 flex items-start gap-3 sm:gap-4"
 								>
-									<div className="flex-shrink-0 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center font-bold text-sm text-neutral-300">{index + 1}</div>
-									<p className="text-neutral-200 leading-relaxed pt-1">{rule}</p>
+									<div className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/10 flex items-center justify-center font-bold text-xs sm:text-sm text-neutral-300">{index + 1}</div>
+									<p className="text-neutral-200 leading-relaxed pt-0.5 sm:pt-1 text-sm sm:text-base">{rule}</p>
 								</motion.div>
 							))}
 						</motion.div>
@@ -245,7 +247,7 @@ export default function EventRulesPage() {
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.5 }}
-							className="space-y-4"
+							className="space-y-3 sm:space-y-4"
 						>
 							{criteria.map((criterion, index) => {
 								if (typeof criterion === 'string') {
@@ -256,12 +258,12 @@ export default function EventRulesPage() {
 											initial={{ opacity: 0, x: -20 }}
 											animate={{ opacity: 1, x: 0 }}
 											transition={{ duration: 0.5, delay: index * 0.1 }}
-											className="bg-white/5 border border-white/10 rounded-lg p-5 flex items-start gap-4 hover:bg-white/10 transition-colors"
+											className="bg-white/5 border border-white/10 rounded-lg p-4 sm:p-5 flex items-start gap-3 sm:gap-4 hover:bg-white/10 transition-colors"
 										>
 											<div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-br ${accents.iconGradient}`}>
 												<ListChecks className="w-5 h-5 text-white" />
 											</div>
-											<p className="text-neutral-200 leading-relaxed pt-2">{criterion}</p>
+											<p className="text-neutral-200 leading-relaxed pt-1.5 sm:pt-2 text-sm sm:text-base">{criterion}</p>
 										</motion.div>
 									);
 								} else {
@@ -272,7 +274,7 @@ export default function EventRulesPage() {
 											initial={{ opacity: 0, y: 20 }}
 											animate={{ opacity: 1, y: 0 }}
 											transition={{ duration: 0.5, delay: index * 0.1 }}
-											className="bg-black/20 border border-white/10 rounded-xl p-6"
+											className="bg-black/20 border border-white/10 rounded-xl p-5 sm:p-6"
 										>
 											<h3 className={`text-xl font-bold mb-4 flex items-center gap-3`}>
 												<span className={`p-2 rounded-md flex-shrink-0 bg-gradient-to-br ${accents.iconGradient}`}>
@@ -282,11 +284,11 @@ export default function EventRulesPage() {
 													{criterion.heading}
 												</span>
 											</h3>
-											<div className="space-y-3 pl-4 border-l-2 border-white/10 ml-5">
+											<div className="space-y-2.5 sm:space-y-3 pl-4 border-l-2 border-white/10 ml-5">
 												{criterion.items.map((item, itemIndex) => (
 													<div key={itemIndex} className="flex items-start gap-3">
 														<div className="mt-1.5 w-2 h-2 rounded-full bg-white/50 flex-shrink-0" />
-														<p className="text-neutral-300">{item}</p>
+														<p className="text-neutral-300 text-sm sm:text-base">{item}</p>
 													</div>
 												))}
 											</div>
@@ -298,14 +300,14 @@ export default function EventRulesPage() {
 					)}
 
 					{/* Important Note Callout */}
-					<div className={`mt-12 border rounded-xl p-6 backdrop-blur-md ${accents.alertBorder} ${accents.alertBg}`}>
+					<div className={`mt-10 sm:mt-12 border rounded-xl p-4 sm:p-6 backdrop-blur-md ${accents.alertBorder} ${accents.alertBg}`}>
 						<div className="flex items-start gap-4">
 							<div className={`p-2 rounded-lg flex-shrink-0 bg-gradient-to-br ${accents.iconGradient}`}>
 								<AlertCircle className="w-5 h-5 text-white" />
 							</div>
 							<div>
 								<h3 className="font-semibold text-white">Important Note</h3>
-								<p className="text-neutral-300 leading-relaxed mt-1">
+								<p className="text-neutral-300 leading-relaxed mt-1 text-sm sm:text-base">
 									All judging criteria may carry equal weight. Performances are evaluated holistically across all dimensions for the fairest assessment. The organizers' decisions are final.
 								</p>
 							</div>

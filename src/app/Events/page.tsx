@@ -426,6 +426,7 @@ export default function EventsPage() {
         <div className="fixed inset-0 z-[9998] bg-black/40 backdrop-blur-lg" />
         <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4">
           <div className="relative w-full max-w-6xl rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10 bg-neutral-900/30 backdrop-blur-2xl border border-white/10">
+            <div className="absolute inset-0 pointer-events-none" />
             <button
               aria-label="Close"
               onClick={handleClose}
@@ -434,7 +435,7 @@ export default function EventsPage() {
               <X className="w-5 h-5 mx-auto" />
             </button>
             <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="relative aspect-[4/3] md:aspect-auto md:h-full bg-black/40">
+              <div className="order-1 md:order-1 relative aspect-[16/10] md:aspect-auto md:h-full bg-black/40">
                 <img
                   src={selectedEvent.image}
                   alt={selectedEvent.title}
@@ -443,9 +444,9 @@ export default function EventsPage() {
                 />
                 <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
               </div>
-              <div className="p-6 md:p-8 text-white space-y-5 md:space-y-6 overflow-y-auto max-h-[80vh] md:border-l md:border-white/10">
+              <div className="order-2 md:order-2 p-5 md:p-8 text-white space-y-5 md:space-y-6 overflow-y-auto max-h-[70vh] md:max-h-[80vh] md:border-l md:border-white/10">
                 <div>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-2 tracking-tight">{selectedEvent.title}</h2>
+                  <h2 className="text-xl md:text-3xl font-bold mb-2 tracking-tight">{selectedEvent.title}</h2>
                   <div className="flex flex-wrap items-center gap-3 text-sm text-gray-300">
                     <span className="inline-flex items-center gap-1"><Calendar className="w-4 h-4" />{selectedEvent.date}</span>
                     <span className="inline-flex items-center gap-1"><Clock className="w-4 h-4" />{selectedEvent.time}</span>
@@ -453,10 +454,10 @@ export default function EventsPage() {
                     <span className="inline-flex items-center gap-1"><Users className="w-4 h-4" />{selectedEvent.capacity}</span>
                   </div>
                 </div>
-                <p className="text-gray-200 leading-relaxed">{selectedEvent.description}</p>
+                <p className="text-gray-200 leading-relaxed text-sm md:text-base">{selectedEvent.description}</p>
                 <div>
                   <h3 className="font-semibold text-lg mb-2">Details</h3>
-                  <p className="text-gray-300 whitespace-pre-line">{selectedEvent.details}</p>
+                  <p className="text-gray-300 whitespace-pre-line text-sm md:text-base">{selectedEvent.details}</p>
                 </div>
                 {showRules && (
                   <div>
@@ -469,7 +470,7 @@ export default function EventsPage() {
                         'Any form of abuse, vandalism or misconduct leads to disqualification.',
                         'Organizers reserve the right to modify rules at any time.'
                       ]).map((rule, idx) => (
-                        <li key={idx}>{rule}</li>
+                        <li key={idx} className="text-sm md:text-base">{rule}</li>
                       ))}
                     </ul>
                   </div>
@@ -484,11 +485,11 @@ export default function EventsPage() {
                     <div className="px-3 py-1 rounded-full bg-white/10 border border-white/20 text-sm">{selectedEvent.category}</div>
                   )}
                 </div>
-                <div className="flex flex-wrap gap-3 pt-2">
+                <div className="flex flex-wrap gap-2 md:gap-3 pt-2">
                   <button onClick={() => router.push(`/Events/${selectedEvent.id}/rules`)} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border bg-white/10 text-white hover:bg-white/15 border-white/20 transition">
                     <Info className="w-4 h-4" /> Rules
                   </button>
-                  <button onClick={() => router.push(`/checkout?event=${selectedEvent.id}`)} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:from-emerald-600 hover:to-teal-600 transition shadow-lg">
+                  <button onClick={() => router.push(`/checkout?event=${selectedEvent.id}`)} className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:from-emerald-600 hover:to-teal-600 transition shadow-lg">
                     Checkout
                   </button>
                   <button onClick={handleShare} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600 transition">
